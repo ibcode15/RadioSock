@@ -3,16 +3,13 @@ import glob
 import random
 import wave
 import pickle
-import codecs
 from threading import Thread
 from multiprocessing import Process,JoinableQueue
-import types
 from time import sleep
 from dataclasses import dataclass
 import os
 import pyaudio
 import RadioTypes
-import struct
 
 @dataclass
 class Client:
@@ -75,7 +72,6 @@ class RadioStation(Process):
                 output = True
                 )
 			data = f.readframes(self.audio_chunk)
-			print(0.97*self.audio_chunk/SongInfoPacket.rate)
 			while len(data) > 0:
 				data = f.readframes(self.audio_chunk)
 				self.PacketQueue.put((RadioTypes.SongPacket(data = data),True))
